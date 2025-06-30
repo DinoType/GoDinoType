@@ -11,7 +11,9 @@ export default function TypingTest() {
 	useEffect(() => {
 		async function fetchQuotes() {
 			const skip = Math.floor(Math.random() * 1000);
-			const res = await fetch(`https://dummyjson.com/quotes?limit=10&skip=${skip}`);
+			const res = await fetch(`https://dummyjson.com/quotes?limit=10&skip=${skip}`, {
+				cache: "no-store",
+			});
 			const data = await res.json();
 			const combined = data.quotes.map(q => q.quote).join(" ");
 			setQuote(combined);
@@ -42,20 +44,26 @@ export default function TypingTest() {
 
 	const renderText = () => {
 		const inputLength = input.length;
+		const LINE_SIZE = 43;
+		const NUM_VISIBLE_LINES = 3;
+		const CHUNK_SIZE = LINE_SIZE * NUM_VISIBLE_LINES;
 
-		// Step 1: Find the start of the current visible chunk
 		let visibleStart = 0;
-		let limit = 86;
 
-		while (visibleStart + limit < quote.length && inputLength > visibleStart + limit) {
-			// Move to next chunk
-			visibleStart += limit;
+		// Move forward by 1 line (43 chars) each time input passes end of second line
+		while (
+			visibleStart + LINE_SIZE * 2 < quote.length &&
+			inputLength > visibleStart + LINE_SIZE * 2
+		) {
+			visibleStart += LINE_SIZE;
 
-			// Go back to last space (to not break word)
+			// Snap to previous word boundary for clean rendering
 			while (quote[visibleStart] !== " " && visibleStart > 0) {
 				visibleStart--;
 			}
 		}
+
+		const renderEnd = visibleStart + CHUNK_SIZE;
 
 		return quote.split("").map((char, i) => {
 			let className = "untyped";
@@ -66,8 +74,10 @@ export default function TypingTest() {
 				className = "active";
 			}
 
-			// Hide characters before visibleStart
-			if (i < visibleStart) className += " hidden";
+			// Hide characters outside the current visible chunk
+			if (i < visibleStart || i >= renderEnd) {
+				className += " hidden";
+			}
 
 			return (
 				<span
