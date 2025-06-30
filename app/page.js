@@ -1,15 +1,12 @@
 'use client'
 
 import { useEffect, useState, useRef } from "react";
-import { splitLines } from "@/lib/splitLines";
 
 export default function TypingTest() {
 	const [quote, setQuote] = useState("");
 	const [input, setInput] = useState("");
-	const [lines, setLines] = useState([]);
 	const inputRef = useRef(null);
 	const charsRef = useRef([]);
-	const linesRef = useRef([]);
 
 	useEffect(() => {
 		async function fetchQuotes() {
@@ -21,15 +18,6 @@ export default function TypingTest() {
 		}
 		fetchQuotes();
 	}, []);
-
-	// Run splitLines once quote is available
-	useEffect(() => {
-		if (quote.length > 0) {
-			const newLines = splitLines(quote, 46);
-			setLines(newLines);
-			console.log(newLines);
-		}
-	}, [quote]);
 
 	useEffect(() => {
 		const focus = () => inputRef.current?.focus();
@@ -53,6 +41,22 @@ export default function TypingTest() {
 	};
 
 	const renderText = () => {
+		const inputLength = input.length;
+
+		// Step 1: Find the start of the current visible chunk
+		let visibleStart = 0;
+		let limit = 86;
+
+		while (visibleStart + limit < quote.length && inputLength > visibleStart + limit) {
+			// Move to next chunk
+			visibleStart += limit;
+
+			// Go back to last space (to not break word)
+			while (quote[visibleStart] !== " " && visibleStart > 0) {
+				visibleStart--;
+			}
+		}
+
 		return quote.split("").map((char, i) => {
 			let className = "untyped";
 
@@ -62,12 +66,18 @@ export default function TypingTest() {
 				className = "active";
 			}
 
+			// Hide characters before visibleStart
+			if (i < visibleStart) className += " hidden";
+
 			return (
-				<span ref={(el) => (charsRef.current[i] = el)} key={i} className={`${className}`}>
+				<span
+					ref={(el) => (charsRef.current[i] = el)}
+					key={i}
+					className={className}
+				>
 					{char}
 				</span>
 			);
-
 		});
 	};
 

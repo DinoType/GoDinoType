@@ -2,7 +2,7 @@
 
 .words {
 	scroll-snap-type: x mandatory;
-	@apply w-[50ch] p-4 overflow-y-hidden overflow-x-scroll max-h-[11rem] scroll-smooth overflow-scroll text-4xl tracking-wide text-[#646669] leading-[3rem] z-0 select-none break-words
+	@apply w-[50ch] p-4 overflow-hidden max-h-[11rem] scroll-smooth overflow-scroll text-4xl tracking-wide text-[#646669] leading-[3rem] z-0 select-none break-words
 }
 
 .words::-webkit-scrollbar {
