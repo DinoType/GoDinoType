@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+.words {
+	@apply w-[60%] overflow-y-hidden overflow-x-scroll max-h-[10rem] scroll-smooth overflow-scroll text-4xl tracking-wide text-[#646669] leading-[3rem] z-0 select-none break-words
+}
+
+.words::-webkit-scrollbar {
+	width: 0;
+	/* Remove scrollbar space */
+	background: transparent;
+	/* Optional: just make scrollbar invisible */
+}
+
+.wordsInput {
+	@apply text-4xl absolute w-[60%] h-[10rem] top-[50%] translate-y-[-50%] opacity-0 z-10
+}
+
+.untyped {
+	@apply text-gray-600
+}
+
+.correct {
+	@apply text-white
+}
+
+.incorrect {
+	@apply text-red-500
+}
+
+.carret {
+	animation-name: carretFlash;
+	@apply text-4xl text-green-400 absolute top-0 bottom-0 opacity-100 block
+}
+
+@keyframe carretFlash {
+	0%,
+	100% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
