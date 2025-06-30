@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 .words {
-	@apply w-[60%] overflow-y-hidden overflow-x-scroll max-h-[10rem] scroll-smooth overflow-scroll text-4xl tracking-wide text-[#646669] leading-[3rem] z-0 select-none break-words
+	scroll-snap-type: x mandatory;
+	@apply w-[50ch] p-4 overflow-y-hidden overflow-x-scroll max-h-[11rem] scroll-smooth overflow-scroll text-4xl tracking-wide text-[#646669] leading-[3rem] z-0 select-none break-words
 }
 
 .words::-webkit-scrollbar {
@@ -12,7 +13,7 @@
 }
 
 .wordsInput {
-	@apply text-4xl absolute w-[60%] h-[10rem] top-[50%] translate-y-[-50%] opacity-0 z-10
+	@apply text-4xl absolute w-[50ch] h-[11rem] top-[50%] translate-y-[-50%] opacity-0 z-10
 }
 
 .untyped {

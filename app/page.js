@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useState, useRef } from "react";
+import { splitLines } from "@/lib/splitLines";
 
 export default function TypingTest() {
 	const [quote, setQuote] = useState("");
 	const [input, setInput] = useState("");
+	const [lines, setLines] = useState([]);
 	const inputRef = useRef(null);
 	const charsRef = useRef([]);
+	const linesRef = useRef([]);
 
 	useEffect(() => {
 		async function fetchQuotes() {
@@ -18,6 +21,15 @@ export default function TypingTest() {
 		}
 		fetchQuotes();
 	}, []);
+
+	// Run splitLines once quote is available
+	useEffect(() => {
+		if (quote.length > 0) {
+			const newLines = splitLines(quote, 46);
+			setLines(newLines);
+			console.log(newLines);
+		}
+	}, [quote]);
 
 	useEffect(() => {
 		const focus = () => inputRef.current?.focus();
