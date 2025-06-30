@@ -7,7 +7,6 @@ export default function TypingTest() {
 	const [input, setInput] = useState("");
 	const inputRef = useRef(null);
 	const charsRef = useRef([]);
-	const carretRef = useRef(null);
 
 	useEffect(() => {
 		async function fetchQuotes() {
@@ -43,12 +42,12 @@ export default function TypingTest() {
 
 	const renderText = () => {
 		return quote.split("").map((char, i) => {
-			let className = "text-gray-600 text-4xl";
+			let className = "untyped";
 
 			if (i < input.length) {
-				className = input[i] === char ? "text-white" : "text-red-500";
+				className = input[i] === char ? "correct" : "incorrect";
 			} else if (i === input.length) {
-				className = "border-l-2 border-green-400 animate-pulse";
+				className = "active";
 			}
 
 			return (
@@ -67,8 +66,6 @@ export default function TypingTest() {
 				{renderText()}
 			</div>
 
-			<div className="carret" ref={carretRef}></div>
-
 			<input
 				ref={inputRef}
 				type="text"
@@ -76,6 +73,9 @@ export default function TypingTest() {
 				value={input}
 				onChange={handleChange}
 				autoFocus
+				autoCapitalize="none"
+				autoCorrect="off"
+				autoComplete="off"
 				spellCheck={false}
 				className="wordsInput"
 			/>

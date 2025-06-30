@@ -27,18 +27,6 @@
 	@apply text-red-500
 }
 
-.carret {
-	animation-name: carretFlash;
-	@apply text-4xl text-green-400 absolute top-0 bottom-0 opacity-100 block
-}
-
-@keyframe carretFlash {
-	0%,
-	100% {
-		opacity: 0;
-	}
-
-	50% {
-		opacity: 1;
-	}
+.active {
+	@apply border-l-2 border-green-400 animate-pulse
 }
