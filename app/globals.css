@@ -23,3 +23,17 @@
 .active {
 	@apply border-l-2 border-green-400 animate-pulse
 }
+
+.results {
+	@apply flex gap-40
+}
+
+.resetIcon {
+	font-size: 40px !important;
+	color: white !important;
+	transition: all 0.2s linear !important;
+}
+
+.resetIcon:hover {
+	color: var(--color-green-400) !important;
+}
