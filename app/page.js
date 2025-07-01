@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from "react";
-import Image from 'next/image'
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function TypingTest() {
 	const [quote, setQuote] = useState("");
@@ -209,6 +209,7 @@ export default function TypingTest() {
 							autorenew
 						</span>
 					</button>
+					<BackgroundBeams />
 				</div>
 			)}
 
