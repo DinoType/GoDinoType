@@ -1,8 +1,9 @@
 'use client'
-// Test
 
 import { useEffect, useState, useRef } from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import Image from 'next/image'
+import Link from "next/link";
 
 export default function TypingTest() {
 	const [quote, setQuote] = useState("");
@@ -163,11 +164,29 @@ export default function TypingTest() {
 	};
 
 	return (
-		<div className="relative w-full h-screen bg-[#1a1a1a] font-mono flex flex-col gap-4 items-center justify-center">
+		<div className="main">
+
+			<nav className="navbar">
+				<Link href="/" className="logo">
+					<Image src="/logo.svg" width={50} height={50} alt="Logo" />
+					<p>DinoType</p>
+				</Link>
+				<div className="links">
+					<Link href="/" className="link">
+						<span className="material-symbols-outlined icon">keyboard</span>
+					</Link>
+					<Link href="/leaderboard" className="link">
+						<span className="material-symbols-outlined icon">crown</span>
+					</Link>
+					<Link href="/login" className="link">
+						<span className="material-symbols-outlined icon">person</span>
+					</Link>
+				</div>
+			</nav>
 
 			{!isFinished && (
-				<div className="relative w-full h-screen bg-[#1a1a1a] font-mono flex flex-col gap-4 items-center justify-center">
-					<div ref={timeLeftRef} className="text-4xl text-green-400">{timeLeft}</div>
+				<div className="typing-container">
+					<div ref={timeLeftRef} className="timer">{timeLeft}</div>
 
 					<div className="words" ref={wordsRef}>
 						{renderText()}
@@ -190,30 +209,33 @@ export default function TypingTest() {
 			)}
 
 			{isFinished && (
-				<div className="flex flex-col gap-20 items-center justify-center" ref={resultsRef}>
+				<div className="results-container" ref={resultsRef}>
 					<div className="results">
 						<div id="wpm" className="flex flex-col gap-0">
-							<h2 className="text-[2rem] text-gray-600">wpm</h2>
-							<p className="text-[4rem] text-green-400">{wpm}</p>
+							<h2 className="heading">wpm</h2>
+							<p className="stat">{wpm}</p>
 						</div>
 						<div id="acc">
-							<h2 className="text-[2rem] text-gray-600">acc</h2>
-							<p className="text-[4rem] text-green-400">{accuracy}%</p>
+							<h2 className="heading">acc</h2>
+							<p className="stat">{accuracy}%</p>
 						</div>
 						<div id="char">
-							<h2 className="text-[2rem] text-gray-600">char</h2>
-							<p className="text-[4rem] text-green-400">{charTyped}</p>
+							<h2 className="heading">char</h2>
+							<p className="stat">{charTyped}</p>
 						</div>
 					</div>
-					<button className="cursor-pointer" onClick={reset}>
-						<span className="material-symbols-outlined resetIcon">
-							autorenew
-						</span>
-					</button>
-					<BackgroundBeams />
+					<div className="buttons">
+						<button onClick={reset}>
+							<span className="material-symbols-outlined icon">autorenew</span>
+						</button>
+						<button >
+							<span className="material-symbols-outlined icon">share</span>
+						</button>
+					</div>
+					<BackgroundBeams/>
 				</div>
 			)}
-
 		</div>
+
 	);
 }
