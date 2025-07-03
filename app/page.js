@@ -108,6 +108,11 @@ export default function TypingTest() {
 		}
 	};
 
+	const handleSelectTimeTest = (e) => {
+		e.preventDefault();
+		setTestTime(e.target.value);
+	}
+
 	const reset = () => {
 		setIsStarted(false);
 		setIsFinished(false);
@@ -173,7 +178,7 @@ export default function TypingTest() {
 					<p>DinoType</p>
 				</Link>
 				<div className="links">
-					<Link href="/" className="link">
+					<Link onClick={reset} href="/" className="link">
 						<span className="material-symbols-outlined icon">keyboard</span>
 					</Link>
 					<Link href="/leaderboard" className="link">
@@ -187,7 +192,29 @@ export default function TypingTest() {
 
 			{!isFinished && (
 				<div className="typing-container">
-					<div ref={timeLeftRef} className="timer">{timeLeft}</div>
+
+					{!isStarted ? (
+						<div className="timerSelector">
+							{[15, 30, 60, 120].map((time) => (
+								<button
+									key={time}
+									onClick={() => {
+										setTestTime(time);
+										setTimeLeft(time);
+									}}
+									className={`selectBtn ${testTime === time
+										? "selected"
+										: "not-selected"
+										}`}
+								>
+									{time}s
+								</button>
+							))}
+						</div>
+					) : (
+						<div ref={timeLeftRef} className="timer text-3xl font-bold text-center my-4">{timeLeft}</div>
+					)}
+
 
 					<div className="words" ref={wordsRef}>
 						{renderText()}

@@ -13,9 +13,25 @@
 }
 
 .timer {
-	@apply text-3xl text-green-400 w-[90%] text-start;
+	@apply text-3xl text-green-400 w-[88%] text-start;
 	/* Desktop */
 	@apply md:text-4xl md:w-[49ch]
+}
+
+.timerSelector {
+	@apply flex gap-4 justify-center mb-4
+}
+
+.selectBtn {
+	@apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
+}
+
+.selectBtn.selected {
+	@apply bg-blue-500 text-white shadow-md
+}
+
+.selectBtn.not-selected {
+	@apply bg-gray-200 cursor-pointer text-gray-800 hover:bg-blue-200
 }
 
 /* ========== Typing Area ========== */
