@@ -1,13 +1,14 @@
-// components/ResultsSection.jsx
 "use client";
 
 import React, { useEffect } from "react";
+import { useSession, signIn } from "next-auth/react"
 import { useTypingContext } from "@/app/context/TypingContext";
 import { calculateResults } from "@/lib/calculateResults";
 import CountUp from "@/components/ui/countup";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function ResultsSection({ reset }) {
+
 	const {
 		quote,
 		input,
@@ -19,11 +20,42 @@ export default function ResultsSection({ reset }) {
 		charTyped, setCharTyped
 	} = useTypingContext();
 
+	const { data: session, status } = useSession()
+
 	useEffect(() => {
 		if (isFinished) {
 			calculateResults(testTime, quote, input, setWpm, setAccuracy, setCharTyped);
 		}
 	}, [isFinished]);
+
+	useEffect(() => {
+		const updateStats = async () => {
+			if (session && session.user && wpm > 0 && status === "authenticated") {
+				try {
+					const username = session.user.email.split('@')[0];
+					const req = await fetch("/api/updatestat", {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							username: username,
+							wpm,
+							acc: accuracy,
+							charTyped,
+							testTime
+						})
+					});
+					const res = await req.json();
+					console.log(res);
+				} catch (err) {
+					console.error("Failed to update stats:", err);
+				}
+			}
+		};
+
+		updateStats(); // call the async function
+	}, [session, wpm, accuracy, charTyped, testTime, status]);
 
 	return (
 		<div className="results-container" ref={resultsRef}>

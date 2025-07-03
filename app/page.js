@@ -5,6 +5,7 @@ import { useTypingContext } from "@/app/context/TypingContext";
 import Navbar from "@/components/Navbar";
 import TypingSection from "@/components/TypingSection";
 import ResultsSection from "@/components/ResultsSection";
+import { fetchQuotes } from "@/lib/fetchQuotes";
 
 export default function TypingTest() {
 
@@ -15,7 +16,8 @@ export default function TypingTest() {
 		setTimeLeft,
 		setWpm,
 		setAccuracy,
-		setCharTyped
+		setCharTyped,
+		setQuote
 	} = useTypingContext();
 
 	const reset = () => {
@@ -26,6 +28,7 @@ export default function TypingTest() {
 		setWpm(0);
 		setAccuracy(0);
 		setCharTyped(0);
+		fetchQuotes(setQuote);
 	}
 
 	return (
