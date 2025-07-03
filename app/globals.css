@@ -99,6 +99,10 @@
 	@apply text-[#aeaeae] text-2xl cursor-pointer;
 }
 
+.logout {
+	@apply text-red-500 text-2xl cursor-pointer;
+}
+
 
 @theme inline {
 	--radius-sm: calc(var(--radius) - 4px);

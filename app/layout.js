@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import SessionWrapper from "@/components/ui/SessionWrapper";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -23,11 +24,13 @@ export default function RootLayout({ children }) {
 				<link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
 				<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 			</head>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
-				{children}
-			</body>
+			<SessionWrapper>
+				<body
+					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				>
+					{children}
+				</body>
+			</SessionWrapper>
 		</html>
 	);
 }
