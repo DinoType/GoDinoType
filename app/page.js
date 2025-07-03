@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import CountUp from "@/components/ui/countup";
 import Image from 'next/image'
 import Link from "next/link";
 
@@ -33,7 +34,7 @@ export default function TypingTest() {
 			setQuote(combined);
 		}
 		fetchQuotes();
-	}, []);
+	}, [isFinished]);
 
 	// Auto focus input on click anywhere
 	useEffect(() => {
@@ -167,7 +168,7 @@ export default function TypingTest() {
 		<div className="main">
 
 			<nav className="navbar">
-				<Link href="/" className="logo">
+				<Link href="/" onClick={reset} className="logo">
 					<Image src="/logo.svg" width={50} height={50} alt="Logo" />
 					<p>DinoType</p>
 				</Link>
@@ -213,15 +214,36 @@ export default function TypingTest() {
 					<div className="results">
 						<div id="wpm" className="flex flex-col gap-0">
 							<h2 className="heading">wpm</h2>
-							<p className="stat">{wpm}</p>
+							<CountUp
+								from={0}
+								to={wpm}
+								separator=","
+								direction="up"
+								duration={1}
+								className="count-up-text stat"
+							/>
 						</div>
 						<div id="acc">
 							<h2 className="heading">acc</h2>
-							<p className="stat">{accuracy}%</p>
+							<CountUp
+								from={0}
+								to={accuracy}
+								separator=","
+								direction="up"
+								duration={1}
+								className="count-up-text stat"
+							/><span className="text-2xl text-gray-600"> %</span>
 						</div>
 						<div id="char">
 							<h2 className="heading">char</h2>
-							<p className="stat">{charTyped}</p>
+							<CountUp
+								from={0}
+								to={charTyped}
+								separator=","
+								direction="up"
+								duration={1}
+								className="count-up-text stat"
+							/>
 						</div>
 					</div>
 					<div className="buttons">
@@ -232,7 +254,7 @@ export default function TypingTest() {
 							<span className="material-symbols-outlined icon">share</span>
 						</button>
 					</div>
-					<BackgroundBeams/>
+					<BackgroundBeams />
 				</div>
 			)}
 		</div>
