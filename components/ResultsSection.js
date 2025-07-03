@@ -47,15 +47,28 @@ export default function ResultsSection({ reset }) {
 						})
 					});
 					const res = await req.json();
-					console.log(res);
+					// console.log(res);
 				} catch (err) {
-					console.error("Failed to update stats:", err);
+					// console.error("Failed to update stats:", err);
 				}
 			}
 		};
 
 		updateStats(); // call the async function
 	}, [session, wpm, accuracy, charTyped, testTime, status]);
+
+	const share = async () => {
+		if (!session || !session.user) {
+			alert("Please sign in to share your results.");
+			return;
+		}
+		try {
+			
+		}
+		catch (err) {
+
+		}
+	}
 
 	return (
 		<div className="results-container" ref={resultsRef}>
@@ -78,7 +91,7 @@ export default function ResultsSection({ reset }) {
 				<button onClick={reset}>
 					<span className="material-symbols-outlined icon">autorenew</span>
 				</button>
-				<button>
+				<button disabled={wpm < 0} onClick={share}>
 					<span className="material-symbols-outlined icon">share</span>
 				</button>
 			</div>
