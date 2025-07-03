@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/ui/SessionWrapper";
+import { TypingProvider } from "@/app/context/TypingContext";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({ children }) {
 				<body
 					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				>
-					{children}
+					<TypingProvider>
+						{children}
+					</TypingProvider>
 				</body>
 			</SessionWrapper>
 		</html>
