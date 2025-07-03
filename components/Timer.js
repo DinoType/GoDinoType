@@ -1,8 +1,17 @@
 "use client"
 
 import React, { useEffect } from 'react'
+import { useTypingContext } from "@/app/context/TypingContext";
 
-export default function Timer({ isStarted, testTime, setTestTime, timeLeft, setTimeLeft, timeLeftRef, setIsFinished }) {
+export default function Timer() {
+
+	const {
+		timeLeftRef,
+		testTime, setTestTime,
+		isStarted,
+		setIsFinished,
+		timeLeft, setTimeLeft,
+	} = useTypingContext();
 
 	// Timer logic
 	useEffect(() => {

@@ -1,6 +1,16 @@
-import React from 'react'
+"use client"
 
-export default function RenderText({ quote, input, charsRef }) {
+import React from 'react'
+import { useTypingContext } from "@/app/context/TypingContext";
+
+export default function RenderText() {
+
+	const {
+		quote,
+		input,
+		charsRef,
+	} = useTypingContext();
+
 	const inputLength = input.length;
 	const LINE_SIZE = 43;
 	const NUM_VISIBLE_LINES = 3;

@@ -1,8 +1,16 @@
 "use client"
 
 import React, { useEffect } from 'react'
+import { useTypingContext } from "@/app/context/TypingContext";
 
-export default function TypingInput({ inputRef, input, setInput, isStarted, setIsStarted, timeLeft }) {
+export default function TypingInput() {
+
+	const {
+		input, setInput,
+		inputRef,
+		isStarted, setIsStarted,
+		timeLeft,
+	} = useTypingContext();
 
 	// Auto focus input on click anywhere
 	useEffect(() => {
