@@ -119,7 +119,11 @@
 
 /* ========== LeaderBoard (lb) ========== */
 .lb-container {
-	@apply flex flex-col w-full min-h-[100dvh] bg-primary-bg;
+	@apply flex flex-col w-full min-h-[100dvh] bg-primary-bg pt-[12dvh] gap-12 px-8;
+}
+
+.lb-container h1 {
+	@apply text-white
 }
 
 @theme inline {

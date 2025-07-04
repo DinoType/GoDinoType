@@ -6,7 +6,21 @@ export default function Leaderboard() {
 		<div>
 			<Navbar />
 			<div className='lb-container'>
-				
+				<div className="filters-container">
+					<div className="filter">
+						<button className='filterBtn'>Desktop</button>
+						<button className='filterBtn'>Tablet</button>
+						<button className='filterBtn'>Mobile</button>
+					</div>
+					<span className='seprator'></span>
+					<div className="filter">
+						<button className='filterBtn'>15s</button>
+						<button className='filterBtn'>30s</button>
+						<button className='filterBtn'>60s</button>
+						<button className='filterBtn'>120s</button>
+					</div>
+				</div>
+				<h1 className='heading'>👑 Leaderboard</h1>
 			</div>
 		</div>
 	)
