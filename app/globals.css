@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-primary-bg: #1a1a1a;
+}
+
 /* ========== Typography ========== */
 .heading {
 	@apply text-2xl md:text-4xl text-gray-600;
@@ -34,9 +38,34 @@
 	@apply bg-gray-200 cursor-pointer text-gray-800 hover:bg-blue-200
 }
 
+/* ========== Navbar ========== */
+.navbar {
+	@apply w-full h-[12dvh] bg-primary-bg flex items-center justify-around z-20 fixed;
+}
+
+.logo {
+	@apply flex gap-2 justify-center items-center text-xl md:text-2xl text-white cursor-pointer;
+}
+
+.logo img {
+	@apply w-10;
+}
+
+.links {
+	@apply flex gap-8;
+}
+
+.icon {
+	@apply text-[#aeaeae] text-2xl cursor-pointer;
+}
+
+.logout {
+	@apply text-red-500 text-2xl cursor-pointer;
+}
+
 /* ========== Typing Area ========== */
 .typing-container {
-	@apply w-full h-[100dvh] bg-[#1a1a1a] font-mono flex flex-col gap-4 items-center justify-center;
+	@apply w-full h-[100dvh] bg-primary-bg font-mono flex flex-col gap-4 items-center justify-center;
 }
 
 .words {
@@ -67,7 +96,7 @@
 
 /* ========== Result Page ========== */
 .results-container {
-	@apply flex flex-col h-[100dvh] gap-20 items-center justify-center bg-[#1a1a1a] z-20;
+	@apply flex flex-col h-[100dvh] gap-20 items-center justify-center bg-primary-bg z-20;
 }
 
 .results {
@@ -83,34 +112,15 @@
 }
 
 .signInMsg {
-	@apply text-2xl text-gray-600 z-10
+	@apply text-xl max-w-[50%] text-center text-gray-600 z-10;
+	/* Desktop */
+	@apply md:text-2xl md:w-full
 }
 
-/* ========== Navbar ========== */
-.navbar {
-	@apply w-full h-[12dvh] bg-[#1a1a1a] flex items-center justify-around z-20 fixed;
+/* ========== LeaderBoard (lb) ========== */
+.lb-container {
+	@apply flex flex-col w-full min-h-[100dvh] bg-primary-bg;
 }
-
-.logo {
-	@apply flex gap-2 justify-center items-center text-xl md:text-2xl text-white cursor-pointer;
-}
-
-.logo img {
-	@apply w-10;
-}
-
-.links {
-	@apply flex gap-8;
-}
-
-.icon {
-	@apply text-[#aeaeae] text-2xl cursor-pointer;
-}
-
-.logout {
-	@apply text-red-500 text-2xl cursor-pointer;
-}
-
 
 @theme inline {
 	--radius-sm: calc(var(--radius) - 4px);

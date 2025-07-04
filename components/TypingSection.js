@@ -29,12 +29,12 @@ export default function TypingSection() {
 				<RenderText />
 			</div>
 			{!session && (
-				<div className="signInMsg mt-4">
-					<span className="mr-1">🎯</span>
+				<div className="signInMsg mt-8 md:mt-4">
+					<span className="mr-1">🏆</span>
 					<button className="underline cursor-pointer font-medium" onClick={login}>
 						Sign in
 					</button>
-					<span> to save your score and appear on the leaderboard</span>
+					<span> to get ranked.</span>
 				</div>
 			)}
 
