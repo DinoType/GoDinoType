@@ -4,13 +4,12 @@ import { NextResponse } from "next/server";
 export async function PUT(request) {
 	try {
 		const body = await request.json();
-		const { username, wpm, acc, charTyped, testTime } = body;
+		const { username, wpm, acc, charTyped, testTime, device } = body;
 
 		const client = await clientPromise;
 		const db = client.db("dinotype");
 
 		const userDoc = await db.collection("users").findOne({ username });
-
 		if (!userDoc) {
 			return NextResponse.json(
 				{ success: false, msg: "User not found" },
@@ -18,46 +17,57 @@ export async function PUT(request) {
 			);
 		}
 
-		// Normalize stats for 30s base
-		const normalizedWpm = (wpm * 30) / testTime;
-		const normalizedCharTyped = (charTyped * 30) / testTime;
-		const score = (normalizedWpm * 2) + (acc * 1) + (normalizedCharTyped * 0.5);
+		// Calculate score with weighted formula
+		const score = (wpm * 2) + (acc * 1) + (charTyped * 0.5);
 
-		const currentBestScore = userDoc.userStats?.score || 0;
+		// Initialize stats array if not exists
+		let stats = userDoc.stats || [];
 
-		// Update only if this score is higher
-		if (score > currentBestScore) {
+		// Check if a record for this time+device combo exists
+		const existingIndex = stats.findIndex(
+			(s) => s.timeLimit === testTime && s.device === device
+		);
+
+		const newStat = {
+			timeLimit: testTime,
+			device,
+			wpm,
+			acc,
+			charTyped,
+			score,
+			updatedAt: new Date(),
+		};
+
+		let msg = "Score not higher. No update.";
+
+		if (existingIndex === -1) {
+			// No previous entry — add new stat
+			stats.push(newStat);
+			msg = "New leaderboard entry created!";
+		} else if (score > stats[existingIndex].score) {
+			// Replace old stat if new score is better
+			stats[existingIndex] = newStat;
+			msg = "New high score! Leaderboard updated.";
+		}
+
+		if (msg !== "Score not higher. No update.") {
 			await db.collection("users").updateOne(
 				{ username },
-				{
-					$set: {
-						userStats: {
-							wpm,
-							acc,
-							charTyped,
-							testTime,
-							score,
-							updatedAt: new Date()
-						}
-					}
-				}
+				{ $set: { stats } }
 			);
 		}
 
 		return NextResponse.json({
-			status: 200,
 			success: true,
-			msg: score > currentBestScore
-				? "New high score! Stats updated."
-				: "Score not higher than previous. No update."
+			msg,
 		});
-		
+
 	} catch (error) {
 		console.error("PUT /update-stats error:", error);
 		return NextResponse.json({
 			status: 500,
 			success: false,
-			msg: error.message || "Something went wrong"
+			msg: error.message || "Something went wrong",
 		});
 	}
 }

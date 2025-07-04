@@ -9,6 +9,7 @@ import CountUp from "@/components/ui/countup";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import * as htmlToImage from 'html-to-image';
 import { login } from "@/lib/login";
+import { getDeviceType } from "@/lib/getDeviceType";
 
 export default function ResultsSection({ reset }) {
 
@@ -38,6 +39,7 @@ export default function ResultsSection({ reset }) {
 			if (session && session.user && wpm > 0 && status === "authenticated") {
 				try {
 					const username = session.user.email.split('@')[0];
+					const device = getDeviceType();
 					const req = await fetch("/api/updatestat", {
 						method: "PUT",
 						headers: {
@@ -48,7 +50,8 @@ export default function ResultsSection({ reset }) {
 							wpm,
 							acc: accuracy,
 							charTyped,
-							testTime
+							testTime,
+							device
 						})
 					});
 					const res = await req.json();

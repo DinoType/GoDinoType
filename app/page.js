@@ -13,6 +13,7 @@ export default function TypingTest() {
 		setInput,
 		setIsStarted,
 		isFinished, setIsFinished,
+		setTestTime,
 		setTimeLeft,
 		setWpm,
 		setAccuracy,
@@ -24,6 +25,7 @@ export default function TypingTest() {
 		setIsStarted(false);
 		setIsFinished(false);
 		setTimeLeft(30);
+		setTestTime(30)
 		setInput("");
 		setWpm(0);
 		setAccuracy(0);
