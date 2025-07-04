@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar';
+import Image from 'next/image'
 
 export default function Leaderboard() {
 
@@ -34,7 +35,7 @@ export default function Leaderboard() {
 			setCurrentPage(currentPage + 1);
 		}
 	}
-	
+
 	const prevPage = () => {
 		if (currentPage > 1) {
 			setCurrentPage(currentPage - 1);
@@ -85,7 +86,27 @@ export default function Leaderboard() {
 				</div>
 				<div className="lb">
 					<h1 className='heading'>👑 Leaderboard</h1>
-					<button onClick={nextPage}>Next Page</button>
+					<div className="paginationBtns">
+						<button onClick={prevPage} disabled={currentPage === 1}>
+							<Image
+								src="/back.svg"
+								width={20}
+								height={20}
+								alt="Back Button"
+							/>
+						</button>
+						<button onClick={nextPage} disabled={currentPage === totalPages}>
+							<Image
+								src="/forward.svg"
+								width={20}
+								height={20}
+								alt="Forward Button"
+							/>
+						</button>
+					</div>
+				</div>
+
+				{/* <button onClick={nextPage}>Next Page</button>
 					<button onClick={prevPage}>Previous Page</button>
 					{leaderboard.length === 0 ? (
 						<p>No results found.</p>
@@ -97,8 +118,7 @@ export default function Leaderboard() {
 								</li>
 							))}
 						</ol>
-					)}
-				</div>
+					)} */}
 
 			</div>
 		</div>
