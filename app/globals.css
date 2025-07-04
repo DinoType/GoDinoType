@@ -119,11 +119,31 @@
 
 /* ========== LeaderBoard (lb) ========== */
 .lb-container {
-	@apply flex flex-col w-full min-h-[100dvh] bg-primary-bg pt-[12dvh] gap-12 px-8;
+	@apply flex flex-col md:flex-row md:items-start justify-start items-center w-full min-h-[100dvh] bg-[#222] pt-[16dvh] md:pt-[20dvh] md:px-16 gap-8 px-8;
 }
 
 .lb-container h1 {
 	@apply text-white
+}
+
+.filters-container {
+	@apply w-[98%] md:w-fit flex justify-start items-start flex-col gap-4
+}
+
+.filters {
+	@apply w-full rounded-md bg-primary-bg p-4 flex gap-4 flex-col justify-start
+}
+
+.filterBtns {
+	@apply flex gap-4 text-white justify-between items-center
+}
+
+.filterBtn {
+	@apply bg-[#222] capitalize rounded-md py-2 px-4 transition-all duration-300 cursor-pointer hover:bg-blue-400
+}
+
+.filterBtn.selected {
+	@apply bg-blue-600
 }
 
 @theme inline {
