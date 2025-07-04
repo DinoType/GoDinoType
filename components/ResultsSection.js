@@ -8,6 +8,7 @@ import { calculateResults } from "@/lib/calculateResults";
 import CountUp from "@/components/ui/countup";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import * as htmlToImage from 'html-to-image';
+import { login } from "@/lib/login";
 
 export default function ResultsSection({ reset }) {
 
@@ -60,29 +61,6 @@ export default function ResultsSection({ reset }) {
 
 		updateStats(); // call the async function
 	}, [session, wpm, accuracy, charTyped, testTime, status]);
-
-	const login = async () => {
-		const popup = window.open("/login", "Login", "width=500,height=600");
-
-		const handleMessage = async (event) => {
-			if (event.origin !== window.location.origin) return;
-			if (event.data.type === "LOGIN_SUCCESS") {
-				console.log("User logged in via popup!");
-				await getSession();
-			}
-		};
-
-		window.addEventListener("message", handleMessage);
-
-		// Optional cleanup in case popup is closed without login
-		const pollPopup = setInterval(() => {
-			if (popup?.closed) {
-				clearInterval(pollPopup);
-				window.removeEventListener("message", handleMessage);
-			}
-		}, 500);
-
-	}
 
 	const share = async () => {
 		if (!session || !session.user) {
