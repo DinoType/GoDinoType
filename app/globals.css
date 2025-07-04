@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary-bg: #1a1a1a;
+	--color-primary-bg: #1a1a1a;
 }
 
 /* ========== Typography ========== */
@@ -147,7 +147,7 @@
 }
 
 .lb {
-	@apply w-full mb-16 flex flex-col gap-16
+	@apply w-full mb-16 flex flex-col gap-8
 }
 
 .paginationBtns {
@@ -155,11 +155,37 @@
 }
 
 .paginationBtns button {
-	@apply bg-primary-bg flex justify-center items-center text-white p-4 rounded-md hover:bg-blue-600 transition-all duration-300 cursor-pointer
+	@apply bg-blue-600 flex justify-center items-center text-white p-4 rounded-md hover:bg-blue-400 transition-all duration-300 cursor-pointer
 }
 
 .paginationBtns button:disabled {
 	@apply bg-[#333] cursor-not-allowed
+}
+
+.lb table {
+	@apply text-[1em] md:text-[1em] w-full text-white text-left rounded-lg overflow-hidden bg-[#222] shadow-md;
+	border-collapse: collapse;
+}
+
+.lb thead {
+	@apply bg-[#333] uppercase text-[0.8em];
+}
+
+.lb th,
+.lb td {
+	@apply px-4 py-3 border-b border-[#444];
+}
+
+.lb tbody tr:hover {
+	@apply bg-[#2a2a2a];
+}
+
+.lb tbody tr:last-child td {
+	@apply border-b-0;
+}
+
+.lb tbody tr:nth-child(even) {
+	@apply bg-[#2a2a2a];
 }
 
 @theme inline {

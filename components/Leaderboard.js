@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar';
 import Image from 'next/image'
+import { formatDate } from '@/lib/formatDate';
 
 export default function Leaderboard() {
 
+	const [loading, setLoading] = useState(true);
 	const [selectedTime, setSelectedTime] = useState(30);
 	const [selectedDevice, setSelectedDevice] = useState('desktop');
 	const [totalPages, setTotalPages] = useState(0);
@@ -16,6 +18,7 @@ export default function Leaderboard() {
 
 		const fetchLeaderboard = async () => {
 			try {
+				setLoading(true);
 				const req = await fetch(`/api/ranking?time=${selectedTime}&device=${selectedDevice}&page=${currentPage}`);
 				const res = await req.json();
 				setLeaderboard(res.ranking);
@@ -23,6 +26,8 @@ export default function Leaderboard() {
 				console.log(res)
 			} catch (err) {
 				console.log(err);
+			} finally {
+				setLoading(false);
 			}
 		};
 
@@ -86,6 +91,56 @@ export default function Leaderboard() {
 				</div>
 				<div className="lb">
 					<h1 className='heading'>👑 Leaderboard</h1>
+					{loading ? (
+						<div className="flex justify-center items-center py-20">
+							<div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+						</div>
+					) : (
+						<>
+							<table>
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Username</th>
+										<th>WPM</th>
+										<th>Accuracy</th>
+										<th className='hidden md:table-cell'>Score</th>
+										<th className='hidden md:table-cell'>Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									{leaderboard.length === 0 && (
+										<tr>
+											<td colSpan={6}>No results found.</td>
+										</tr>
+									)}
+									{leaderboard.map((user, index) => (
+										<tr key={user._id || index}>
+											<td>{user.rank}</td>
+											<td>
+												<div className="flex items-center gap-3">
+													<Image
+														src={user.image || "/default-avatar.png"}
+														alt={user.name || user.username}
+														width={32}
+														height={32}
+														className="rounded-full object-cover"
+													/>
+													<span>{user.name || user.username}</span>
+												</div>
+											</td>
+
+											<td>{user.wpm}</td>
+											<td>{user.acc}%</td>
+											<td className='hidden md:table-cell'>{user.score}</td>
+											<td className='hidden md:table-cell'>{formatDate(user.updatedAt)}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</>
+					)}
+
 					<div className="paginationBtns">
 						<button onClick={prevPage} disabled={currentPage === 1}>
 							<Image
