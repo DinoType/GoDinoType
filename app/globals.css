@@ -78,6 +78,14 @@
 	@apply flex gap-8 z-10;
 }
 
+.buttons .icon {
+	@apply text-4xl;
+}
+
+.signInMsg {
+	@apply text-2xl text-gray-600 z-10
+}
+
 /* ========== Navbar ========== */
 .navbar {
 	@apply w-full h-[12dvh] bg-[#1a1a1a] flex items-center justify-around z-20 fixed;

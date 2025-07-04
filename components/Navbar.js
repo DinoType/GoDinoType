@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from 'next/image'
 import Link from "next/link";
 
-export default function Navbar({reset}) {
+export default function Navbar({ reset }) {
 
 	const { data: session, status } = useSession()
 
@@ -23,10 +23,11 @@ export default function Navbar({reset}) {
 				<Link href="/leaderboard" className="link">
 					<span className="material-symbols-outlined icon">crown</span>
 				</Link>
-				<Link href="/profile" className="link">
+				{!session ? 
+				(<Link href="/login" className="link">
 					<span className="material-symbols-outlined icon">person</span>
-				</Link>
-				{session && (<button onClick = { () => signOut() }><span className = "material-symbols-outlined logout">logout</span></button>)}
+				</Link>) : 
+				(<button onClick={() => signOut()}><span className="material-symbols-outlined logout">logout</span></button>)}
 			</div >
 		</nav >
 	)

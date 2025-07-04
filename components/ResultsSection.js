@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { useSession, signIn } from "next-auth/react"
+import React, { useEffect, useRef } from "react";
+import { useSession, signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useTypingContext } from "@/app/context/TypingContext";
 import { calculateResults } from "@/lib/calculateResults";
 import CountUp from "@/components/ui/countup";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import * as htmlToImage from 'html-to-image';
 
 export default function ResultsSection({ reset }) {
 
@@ -21,6 +23,8 @@ export default function ResultsSection({ reset }) {
 	} = useTypingContext();
 
 	const { data: session, status } = useSession()
+
+	const sampleRef = useRef(null);
 
 	useEffect(() => {
 		if (isFinished) {
@@ -57,23 +61,51 @@ export default function ResultsSection({ reset }) {
 		updateStats(); // call the async function
 	}, [session, wpm, accuracy, charTyped, testTime, status]);
 
+	const login = async () => {
+		const popup = window.open("/login", "Login", "width=500,height=600");
+
+		const handleMessage = async (event) => {
+			if (event.origin !== window.location.origin) return;
+			if (event.data.type === "LOGIN_SUCCESS") {
+				console.log("User logged in via popup!");
+				await getSession();
+			}
+		};
+
+		window.addEventListener("message", handleMessage);
+
+		// Optional cleanup in case popup is closed without login
+		const pollPopup = setInterval(() => {
+			if (popup?.closed) {
+				clearInterval(pollPopup);
+				window.removeEventListener("message", handleMessage);
+			}
+		}, 500);
+
+	}
+
 	const share = async () => {
 		if (!session || !session.user) {
-			alert("Please sign in to share your results.");
+			login();
 			return;
 		}
 		try {
-			
-		}
-		catch (err) {
+			if (!resultsRef.current) return;
 
+			const img = await htmlToImage.toJpeg(document.getElementById("results-container"), {
+				quality: 0.95,
+			});
+			console.log("image dataUri:", img);
+		} catch (err) {
+			console.error("Error capturing screenshot:", err);
 		}
-	}
+	};
+
 
 	return (
-		<div className="results-container" ref={resultsRef}>
+		<div className="results-container" id="results-container" ref={resultsRef}>
 			<div className="results">
-				<div id="wpm" className="flex flex-col gap-0">
+				<div id="wpm" className="flex flex-col gap-0" ref={sampleRef}>
 					<h2 className="heading">wpm</h2>
 					<CountUp from={0} to={wpm} duration={1} className="count-up-text stat" />
 				</div>
@@ -95,6 +127,10 @@ export default function ResultsSection({ reset }) {
 					<span className="material-symbols-outlined icon">share</span>
 				</button>
 			</div>
+			{!session && (<div className="signInMsg">
+				<button className="underline cursor-pointer" onClick={login}>Sign in</button>
+				<span> to save or share your results</span>
+			</div>)}
 			<BackgroundBeams />
 		</div>
 	);
