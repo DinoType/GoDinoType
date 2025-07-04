@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from "react";
 import { useSession, signIn } from "next-auth/react";
-import { getSession } from "next-auth/react";
 import { useTypingContext } from "@/app/context/TypingContext";
 import { calculateResults } from "@/lib/calculateResults";
 import CountUp from "@/components/ui/countup";
@@ -25,8 +24,6 @@ export default function ResultsSection({ reset }) {
 	} = useTypingContext();
 
 	const { data: session, status } = useSession()
-
-	const sampleRef = useRef(null);
 
 	useEffect(() => {
 		if (isFinished) {
@@ -71,14 +68,9 @@ export default function ResultsSection({ reset }) {
 			return;
 		}
 		try {
-			if (!resultsRef.current) return;
-
-			const img = await htmlToImage.toJpeg(document.getElementById("results-container"), {
-				quality: 0.95,
-			});
-			console.log("image dataUri:", img);
+			
 		} catch (err) {
-			console.error("Error capturing screenshot:", err);
+			console.error(err);
 		}
 	};
 
@@ -86,7 +78,7 @@ export default function ResultsSection({ reset }) {
 	return (
 		<div className="results-container" id="results-container" ref={resultsRef}>
 			<div className="results">
-				<div id="wpm" className="flex flex-col gap-0" ref={sampleRef}>
+				<div id="wpm" className="flex flex-col gap-0">
 					<h2 className="heading">wpm</h2>
 					<CountUp from={0} to={wpm} duration={1} className="count-up-text stat" />
 				</div>
