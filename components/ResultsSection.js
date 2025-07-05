@@ -97,7 +97,6 @@ export default function ResultsSection({ reset }) {
 				);
 			}
 
-			// Add others...
 		} catch (err) {
 			console.error("Error during sharing:", err);
 		} finally {
@@ -131,9 +130,6 @@ export default function ResultsSection({ reset }) {
 				</button>
 				<button onClick={() => share("linkedin")} className="iconBtn">
 					<Image src="/linkedin.svg" width={40} height={40} alt="Linkedin Icon" />
-				</button>
-				<button onClick={() => share("facebook")} className="iconBtn">
-					<Image src="/fb.svg" width={40} height={40} alt="Fb Icon" />
 				</button>
 			</div>
 
