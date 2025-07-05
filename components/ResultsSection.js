@@ -25,6 +25,8 @@ export default function ResultsSection({ reset }) {
 
 	const { data: session, status } = useSession();
 
+	const [isSharing, setIsSharing] = useState(false);
+
 	useEffect(() => {
 		if (isFinished) {
 			calculateResults(testTime, quote, input, setWpm, setAccuracy, setCharTyped);
@@ -62,10 +64,10 @@ export default function ResultsSection({ reset }) {
 	}, [session, wpm, accuracy, charTyped, testTime, status]);
 
 	const share = async (platform) => {
+		setIsSharing(true); // start loader
 		try {
 			let resolvedUsername = null;
 
-			// If username is not already set, fetch it
 			if (!resolvedUsername && session?.user?.email) {
 				const res = await fetch(`/api/get-username?email=${session.user.email}`);
 				const data = await res.json();
@@ -76,6 +78,7 @@ export default function ResultsSection({ reset }) {
 
 			if (!resolvedUsername) {
 				console.warn("Username not available, cannot share.");
+				setIsSharing(false); // stop loader
 				return;
 			}
 
@@ -94,16 +97,13 @@ export default function ResultsSection({ reset }) {
 				);
 			}
 
-			// Implement other platforms similarly
+			// Add others...
 		} catch (err) {
 			console.error("Error during sharing:", err);
+		} finally {
+			setIsSharing(false); // always stop loader
 		}
 	};
-
-	const dark = {
-		backgroundColor: '#000',
-	}
-
 
 	return (
 		<div className="results-container" id="results-container" ref={resultsRef}>
@@ -142,6 +142,12 @@ export default function ResultsSection({ reset }) {
 				<span> to save or share your results</span>
 			</div>)}
 
+			{isSharing && (
+				<div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+					<div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+				</div>
+			)}
+			
 			<BackgroundBeams />
 		</div>
 	);
