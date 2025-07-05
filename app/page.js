@@ -20,7 +20,6 @@ export default function TypingTest() {
 		setAccuracy,
 		setCharTyped,
 		setQuote,
-		username, setUsername
 	} = useTypingContext();
 
 	const { data: session, status } = useSession()
@@ -36,30 +35,6 @@ export default function TypingTest() {
 		setCharTyped(0);
 		fetchQuotes(setQuote);
 	}
-
-	useEffect(() => {
-		const fetchAndSetUsername = async () => {
-			if (session?.user?.email) {
-				try {
-					const res = await fetch(`/api/get-username?email=${session.user.email}`);
-					const data = await res.json();
-					if (data.success) {
-						setUsername(data.username);
-					} else {
-						setUsername(null);
-					}
-				} catch (err) {
-					console.error("Error fetching username:", err);
-					setUsername(null);
-				}
-			} else {
-				// User logged out
-				setUsername(null);
-			}
-		};
-
-		fetchAndSetUsername();
-	}, [session, setUsername]); // trigger whenever session changes
 
 	return (
 		<div className="main">

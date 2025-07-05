@@ -14,7 +14,14 @@ export default function SignInPage() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
+		setValue,
+		getValues,
+	} = useForm({
+		defaultValues: {
+			username: "",
+		},
+	});
+
 
 	useEffect(() => {
 		if (status === "unauthenticated") {
@@ -31,9 +38,21 @@ export default function SignInPage() {
 		}
 	}, [status, issubmitted]);
 
-	const onSubmit = async (data) => {
+	useEffect(() => {
+		if (session?.user?.email) {
+			setValue("username", session.user.email.split("@")[0]);
+		}
+	}, [session, setValue]);
 
+
+	const onSubmit = async (data) => {
 		const username = data.username;
+
+		if (username === session.user.email.split("@")[0]) {
+			setIssubmitted(true);
+			return;
+		}
+
 		const res = await fetch("/api/update-username", {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
@@ -48,7 +67,6 @@ export default function SignInPage() {
 			setIssubmitted(true);
 			toast.success("Username Updated Successfully");
 		}
-
 	};
 
 	const onError = (formErrors) => {

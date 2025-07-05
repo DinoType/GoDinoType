@@ -4,12 +4,12 @@ import { NextResponse } from "next/server";
 export async function PUT(request) {
 	try {
 		const body = await request.json();
-		const { username, wpm, acc, charTyped, testTime, device } = body;
+		const { email, wpm, acc, charTyped, testTime, device } = body;
 
 		const client = await clientPromise;
 		const db = client.db("godinotype");
 
-		const userDoc = await db.collection("users").findOne({ username });
+		const userDoc = await db.collection("users").findOne({ email });
 		if (!userDoc) {
 			return NextResponse.json(
 				{ success: false, msg: "User not found" },
@@ -52,7 +52,7 @@ export async function PUT(request) {
 
 		if (msg !== "Score not higher. No update.") {
 			await db.collection("users").updateOne(
-				{ username },
+				{ email },
 				{ $set: { stats } }
 			);
 		}

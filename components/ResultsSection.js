@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useTypingContext } from "@/app/context/TypingContext";
 import { calculateResults } from "@/lib/calculateResults";
@@ -21,10 +21,9 @@ export default function ResultsSection({ reset }) {
 		wpm, setWpm,
 		accuracy, setAccuracy,
 		charTyped, setCharTyped,
-		username,
 	} = useTypingContext();
 
-	const { data: session, status } = useSession()
+	const { data: session, status } = useSession();
 
 	useEffect(() => {
 		if (isFinished) {
@@ -37,13 +36,13 @@ export default function ResultsSection({ reset }) {
 			if (session && session.user && wpm > 0 && status === "authenticated") {
 				try {
 					const device = getDeviceType();
-					const req = await fetch("/api/updatestat", {
+					const req = await fetch("/api/update-stat", {
 						method: "PUT",
 						headers: {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							username: username,
+							email: session.user.email,
 							wpm,
 							acc: accuracy,
 							charTyped,
@@ -52,9 +51,9 @@ export default function ResultsSection({ reset }) {
 						})
 					});
 					const res = await req.json();
-					// console.log(res);
+					console.log(res);
 				} catch (err) {
-					// console.error("Failed to update stats:", err);
+					console.error("Failed to update stats:", err);
 				}
 			}
 		};
@@ -63,15 +62,26 @@ export default function ResultsSection({ reset }) {
 	}, [session, wpm, accuracy, charTyped, testTime, status]);
 
 	const share = async (platform) => {
-		// if (!session || !session.user) {
-		// 	login();
-		// 	return;
-		// }
 		try {
-			console.log(platform);
+			let resolvedUsername = null;
+
+			// If username is not already set, fetch it
+			if (!resolvedUsername && session?.user?.email) {
+				const res = await fetch(`/api/get-username?email=${session.user.email}`);
+				const data = await res.json();
+				if (data.success) {
+					resolvedUsername = data.username;
+				}
+			}
+
+			if (!resolvedUsername) {
+				console.warn("Username not available, cannot share.");
+				return;
+			}
+
 			if (platform === "twitter") {
-				const text = `Can you Even get colse to me`
-				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${username}/${wpm}/${accuracy}/${charTyped}`;
+				const text = `Can you even get close to me?`;
+				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/${charTyped}`;
 				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 				const width = 550;
 				const height = 420;
@@ -83,8 +93,10 @@ export default function ResultsSection({ reset }) {
 					`width=${width},height=${height},top=${top},left=${left},scrollbars=no,resizable=no`
 				);
 			}
+
+			// Implement other platforms similarly
 		} catch (err) {
-			console.error(err);
+			console.error("Error during sharing:", err);
 		}
 	};
 
@@ -129,6 +141,7 @@ export default function ResultsSection({ reset }) {
 				<button className="underline cursor-pointer" onClick={login}>Sign in</button>
 				<span> to save or share your results</span>
 			</div>)}
+
 			<BackgroundBeams />
 		</div>
 	);
