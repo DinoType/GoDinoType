@@ -18,7 +18,7 @@ export const authOptions = {
 	callbacks: {
 		async signIn({ user, account }) {
 			const client = await clientPromise
-			const db = client.db('dinotype')
+			const db = client.db('godinotype')
 			const usersCollection = db.collection('users')
 
 			const existingUser = await usersCollection.findOne({ email: user.email })

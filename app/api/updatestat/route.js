@@ -7,7 +7,7 @@ export async function PUT(request) {
 		const { username, wpm, acc, charTyped, testTime, device } = body;
 
 		const client = await clientPromise;
-		const db = client.db("dinotype");
+		const db = client.db("godinotype");
 
 		const userDoc = await db.collection("users").findOne({ username });
 		if (!userDoc) {

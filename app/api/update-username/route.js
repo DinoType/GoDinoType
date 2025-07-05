@@ -7,7 +7,7 @@ export async function PUT(request) {
 		const { username, email } = body;
 
 		const client = await clientPromise;
-		const db = client.db("dinotype");
+		const db = client.db("godinotype");
 
 		// Check if user exists
 
