@@ -15,7 +15,7 @@ export default function Navbar({ reset }) {
 		<nav className="navbar">
 			<Link href="/" onClick={reset} className="logo">
 				<Image src="/logo.svg" width={50} height={50} alt="Logo" />
-				<p>DinoType</p>
+				<p>GoDinoType</p>
 			</Link>
 			<div className="links">
 				<Link onClick={reset} href="/" className="link">

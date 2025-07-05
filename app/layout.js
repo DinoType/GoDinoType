@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-	title: "DinoType - Typing Speed Test",
+	title: "GoDinoType - Typing Speed Test",
 	description: "Challenge yourself with DinoType — check your typing speed and easily share your verified scores with friends!",
 };
 
