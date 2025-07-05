@@ -9,15 +9,6 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import { login } from "@/lib/login";
 import { getDeviceType } from "@/lib/getDeviceType";
 import Image from "next/image";
-import {
-	FacebookIcon,
-	FacebookShareButton,
-	LinkedinIcon,
-	LinkedinShareButton,
-	TwitterIcon,
-	TwitterShareButton,
-	WhatsappIcon,
-} from "react-share";
 
 export default function ResultsSection({ reset }) {
 
@@ -29,7 +20,8 @@ export default function ResultsSection({ reset }) {
 		isFinished,
 		wpm, setWpm,
 		accuracy, setAccuracy,
-		charTyped, setCharTyped
+		charTyped, setCharTyped,
+		username,
 	} = useTypingContext();
 
 	const { data: session, status } = useSession()
@@ -44,7 +36,6 @@ export default function ResultsSection({ reset }) {
 		const updateStats = async () => {
 			if (session && session.user && wpm > 0 && status === "authenticated") {
 				try {
-					const username = session.user.email.split('@')[0];
 					const device = getDeviceType();
 					const req = await fetch("/api/updatestat", {
 						method: "PUT",
@@ -79,7 +70,6 @@ export default function ResultsSection({ reset }) {
 		try {
 			console.log(platform);
 			if (platform === "twitter") {
-				const username = 'tushardama';
 				const text = `Can you Even get colse to me`
 				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${username}/${wpm}/${accuracy}/${charTyped}`;
 				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;

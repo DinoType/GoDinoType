@@ -19,6 +19,7 @@ export const TypingProvider = ({ children }) => {
 	const [wpm, setWpm] = useState(0);
 	const [accuracy, setAccuracy] = useState(0);
 	const [charTyped, setCharTyped] = useState(0);
+	const [username, setUsername] = useState(null);
 
 	return (
 		<TypingContext.Provider
@@ -36,7 +37,8 @@ export const TypingProvider = ({ children }) => {
 				timeLeft, setTimeLeft,
 				wpm, setWpm,
 				accuracy, setAccuracy,
-				charTyped, setCharTyped
+				charTyped, setCharTyped,
+				username, setUsername
 			}}
 		>
 			{children}
