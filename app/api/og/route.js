@@ -10,7 +10,7 @@ export async function GET(req) {
 
 	// ✅ Replace these URLs with your deployed asset URLs
 	const bgUrl = 'https://a0dc-2401-4900-8898-5457-d900-85a1-df7a-326a.ngrok-free.app/bg.png';
-	const logoUrl = 'https://a0dc-2401-4900-8898-5457-d900-85a1-df7a-326a.ngrok-free.app/logo.png';
+	const logoUrl = 'https://a0dc-2401-4900-8898-5457-d900-85a1-df7a-326a.ngrok-free.app/graylogo.png';
 
 	return new ImageResponse(
 		(
@@ -62,29 +62,37 @@ export async function GET(req) {
 					fontSize: 32,
 					color: '#fff',
 					position: 'absolute',
-					top: 268,
+					top: 270,
 					left: 42,
 				}}>
-					{username} types <span
+					@{username} types <span
 						style={{
 							background: 'white',
 							color: 'black',
 							padding: '4px 8px',
 							borderRadius: 4,
+							marginLeft: '10px',
 						}}
 					>
-						{wpm} words
-					</span> per minute.
+						{wpm} words 
+					</span> 
+					<span
+						style={{
+							marginLeft: '10px',
+						}}
+					>
+						per minute.
+					</span> 
 				</p>
 
 				{/* Additional lines */}
-				<p style={{ fontSize: 32, color: '#fff', position: 'absolute', top: 314, left: 42 }}>
+				<p style={{ fontSize: 32, color: '#fff', position: 'absolute', top: 324, left: 42 }}>
 					Can you type fast enough...
 				</p>
-				<p style={{ fontSize: 32, color: '#fff', position: 'absolute', top: 356, left: 42 }}>
+				<p style={{ fontSize: 32, color: '#fff', position: 'absolute', top: 366, left: 42 }}>
 					to outrun a T-Rex?
 				</p>
-				<p style={{ fontSize: 32, color: '#fff', position: 'absolute', top: 398, left: 42 }}>
+				<p style={{ fontSize: 32, color: '#fff', position: 'absolute', top: 408, left: 42 }}>
 					Chase Me!
 				</p>
 
