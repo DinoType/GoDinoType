@@ -9,8 +9,8 @@ export async function GET(req) {
 	const acc = searchParams.get('acc') || 0;
 
 	// ✅ Replace these URLs with your deployed asset URLs
-	const bgUrl = 'https://a0dc-2401-4900-8898-5457-d900-85a1-df7a-326a.ngrok-free.app/bg.png';
-	const logoUrl = 'https://a0dc-2401-4900-8898-5457-d900-85a1-df7a-326a.ngrok-free.app/graylogo.png';
+	const bgUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/bg.png`;
+	const logoUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/graylogo.png`;
 
 	return new ImageResponse(
 		(

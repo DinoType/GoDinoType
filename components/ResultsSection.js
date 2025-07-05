@@ -84,7 +84,7 @@ export default function ResultsSection({ reset }) {
 
 			if (platform === "twitter") {
 				const text = `Can you even get close to me?`;
-				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/${charTyped}`;
+				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/0`;
 				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 				const width = 550;
 				const height = 420;
@@ -93,6 +93,21 @@ export default function ResultsSection({ reset }) {
 				window.open(
 					shareUrl,
 					'twitter-share-dialog',
+					`width=${width},height=${height},top=${top},left=${left},scrollbars=no,resizable=no`
+				);
+			}
+
+			if (platform === "linkedin") {
+				const text = `Can you even get close to me?`;
+				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/1`;
+				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+				const width = 550;
+				const height = 420;
+				const left = (window.innerWidth / 2) - (width / 2);
+				const top = (window.innerHeight / 2) - (height / 2);
+				window.open(
+					shareUrl,
+					'linkedin-share-dialog',
 					`width=${width},height=${height},top=${top},left=${left},scrollbars=no,resizable=no`
 				);
 			}
