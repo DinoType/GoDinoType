@@ -96,7 +96,7 @@
 
 /* ========== Result Page ========== */
 .results-container {
-	@apply flex flex-col h-[100dvh] gap-20 items-center justify-center bg-primary-bg z-20;
+	@apply flex flex-col h-[100dvh] gap-16 items-center justify-center bg-primary-bg z-20;
 }
 
 .results {
@@ -104,11 +104,11 @@
 }
 
 .buttons {
-	@apply flex gap-8 z-10;
+	@apply flex items-center justify-center gap-6 md:gap-8 z-20;
 }
 
-.buttons .icon {
-	@apply text-4xl;
+.iconBtn img {
+	@apply rounded-full w-[50px] h-[50px] cursor-pointer
 }
 
 .signInMsg {

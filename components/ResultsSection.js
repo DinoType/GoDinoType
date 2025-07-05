@@ -6,9 +6,18 @@ import { useTypingContext } from "@/app/context/TypingContext";
 import { calculateResults } from "@/lib/calculateResults";
 import CountUp from "@/components/ui/countup";
 import { BackgroundBeams } from "@/components/ui/background-beams";
-import * as htmlToImage from 'html-to-image';
 import { login } from "@/lib/login";
 import { getDeviceType } from "@/lib/getDeviceType";
+import Image from "next/image";
+import {
+	FacebookIcon,
+	FacebookShareButton,
+	LinkedinIcon,
+	LinkedinShareButton,
+	TwitterIcon,
+	TwitterShareButton,
+	WhatsappIcon,
+} from "react-share";
 
 export default function ResultsSection({ reset }) {
 
@@ -62,17 +71,36 @@ export default function ResultsSection({ reset }) {
 		updateStats(); // call the async function
 	}, [session, wpm, accuracy, charTyped, testTime, status]);
 
-	const share = async () => {
-		if (!session || !session.user) {
-			login();
-			return;
-		}
+	const share = async (platform) => {
+		// if (!session || !session.user) {
+		// 	login();
+		// 	return;
+		// }
 		try {
-			
+			console.log(platform);
+			if (platform === "twitter") {
+				const username = 'tushardama';
+				const text = `Can you Even get colse to me`
+				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${username}/${wpm}/${accuracy}/${charTyped}`;
+				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+				const width = 550;
+				const height = 420;
+				const left = (window.innerWidth / 2) - (width / 2);
+				const top = (window.innerHeight / 2) - (height / 2);
+				window.open(
+					shareUrl,
+					'twitter-share-dialog',
+					`width=${width},height=${height},top=${top},left=${left},scrollbars=no,resizable=no`
+				);
+			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
+
+	const dark = {
+		backgroundColor: '#000',
+	}
 
 
 	return (
@@ -93,13 +121,20 @@ export default function ResultsSection({ reset }) {
 				</div>
 			</div>
 			<div className="buttons">
-				<button onClick={reset}>
-					<span className="material-symbols-outlined icon">autorenew</span>
+				<button onClick={reset} className="iconBtn">
+					<Image src="/reset.svg" width={40} height={40} alt="Reset Icon" />
 				</button>
-				<button disabled={wpm < 0} onClick={share}>
-					<span className="material-symbols-outlined icon">share</span>
+				<button onClick={() => share("twitter")} className="iconBtn scale-[1.1]">
+					<Image src="/x.svg" width={40} height={40} alt="X Icon" />
+				</button>
+				<button onClick={() => share("linkedin")} className="iconBtn">
+					<Image src="/linkedin.svg" width={40} height={40} alt="Linkedin Icon" />
+				</button>
+				<button onClick={() => share("facebook")} className="iconBtn">
+					<Image src="/fb.svg" width={40} height={40} alt="Fb Icon" />
 				</button>
 			</div>
+
 			{!session && (<div className="signInMsg">
 				<button className="underline cursor-pointer" onClick={login}>Sign in</button>
 				<span> to save or share your results</span>
