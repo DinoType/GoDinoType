@@ -9,6 +9,8 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import { login } from "@/lib/login";
 import { getDeviceType } from "@/lib/getDeviceType";
 import Image from "next/image";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ResultsSection({ reset }) {
 
@@ -54,6 +56,9 @@ export default function ResultsSection({ reset }) {
 					});
 					const res = await req.json();
 					console.log(res);
+					if (res.msg == 'New leaderboard entry created!'){
+						toast.success('New Highscore 🎉');
+					}
 				} catch (err) {
 					console.error("Failed to update stats:", err);
 				}
@@ -121,6 +126,15 @@ export default function ResultsSection({ reset }) {
 
 	return (
 		<div className="results-container" id="results-container" ref={resultsRef}>
+			<ToastContainer
+				position="top-right"
+				theme="dark"
+				autoClose={3000}
+				hideProgressBar={false}
+				closeOnClick
+				pauseOnHover
+				draggable
+			/>
 			<div className="results">
 				<div id="wpm" className="flex flex-col gap-0">
 					<h2 className="heading">wpm</h2>
