@@ -1,13 +1,13 @@
+import SharedResult from '@/components/SharedResult';
+
 export async function generateMetadata({ params }) {
-	const [username, wpm, acc, shareType] = params.paras;
+	const { paras } = await params;
+	const [username, wpm, acc, shareType] = await paras || [];
 
-	let imageUrl = '';
-
-	if (shareType === '0') {
-		imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/og?username=${username}&wpm=${wpm}&acc=${acc}`;
-	} else {
-		imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/og.jpg`;
-	}
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+	const imageUrl = shareType === '0'
+		? `${baseUrl}/api/og?username=${username}&wpm=${wpm}&acc=${acc}`
+		: `${baseUrl}/og.jpg`;
 
 	return {
 		title: `${username}'s Typing Result`,
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
 		openGraph: {
 			title: `${username}'s Typing Result`,
 			description: `WPM: ${wpm}, Accuracy: ${acc}%`,
-			url: `${process.env.NEXT_PUBLIC_BASE_URL}/result/${username}/${wpm}/${acc}/${shareType}`,
+			url: `${baseUrl}/result/${username}/${wpm}/${acc}/${shareType}`,
 			images: [{ url: imageUrl }],
 			type: 'website',
 		},
@@ -28,13 +28,9 @@ export async function generateMetadata({ params }) {
 	};
 }
 
-export default function Page({ params }) {
-	const { paras } = params;
-	const username = paras[0];
-
-	return (
-		<div>
-			{username}
-		</div>
-	);
+export default async function Page({ params }) {
+	const { paras } = await params;
+	const username = await paras[0];
+	
+	return <SharedResult username={username} />;
 }

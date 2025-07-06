@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchUser } from "@/lib/fetchUser";
 
 export default function SignInPage() {
 	const { data: session, status } = useSession();
@@ -49,9 +50,7 @@ export default function SignInPage() {
 
 			setIsLoading(true); // start loading
 			try {
-				const res = await fetch(`/api/get-user?email=${encodeURIComponent(session.user.email)}`);
-				const data = await res.json();
-				console.log(data);
+				const data = await fetchUser('email',encodeURIComponent(session.user.email));
 
 				if (data.success && data.user) {
 					setValue("username", data.user.username);
