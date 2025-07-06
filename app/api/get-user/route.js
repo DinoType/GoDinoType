@@ -19,7 +19,7 @@ export async function GET(req) {
 			return NextResponse.json({ success: false, msg: "User not found" }, { status: 404 });
 		}
 
-		return NextResponse.json({ success: true, username: user.username }, { status: 200 });
+		return NextResponse.json({ success: true, user: user }, { status: 200 });
 	}
 	catch (err) {
 		return NextResponse.json({ error: err.message }, { status: 500 });

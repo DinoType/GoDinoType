@@ -69,10 +69,10 @@ export default function ResultsSection({ reset }) {
 			let resolvedUsername = null;
 
 			if (!resolvedUsername && session?.user?.email) {
-				const res = await fetch(`/api/get-username?email=${session.user.email}`);
+				const res = await fetch(`/api/get-user?email=${session.user.email}`);
 				const data = await res.json();
 				if (data.success) {
-					resolvedUsername = data.username;
+					resolvedUsername = data.user.username;
 				}
 			}
 
