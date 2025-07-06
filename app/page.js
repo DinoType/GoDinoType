@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect } from "react";
-import { useSession, signIn } from "next-auth/react";
 import { useTypingContext } from "@/app/context/TypingContext";
 import Navbar from "@/components/Navbar";
 import TypingSection from "@/components/TypingSection";
@@ -21,8 +20,6 @@ export default function TypingTest() {
 		setCharTyped,
 		setQuote,
 	} = useTypingContext();
-
-	const { data: session, status } = useSession()
 
 	const reset = () => {
 		setIsStarted(false);

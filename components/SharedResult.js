@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchUser } from '@/lib/fetchUser';
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import Navbar from '@/components/Navbar';
 
 export default function SharedResult({ username }) {
 
@@ -23,8 +25,14 @@ export default function SharedResult({ username }) {
 	}, [username]);
 
 	return (
-		<div>
-			
+		<div className='bg-black min-h-screen w-full'>
+			<Navbar reset={() => {}} />
+				<div className="bento-container">
+					<div className="bento-grid">
+						
+					</div>
+				</div>
+			<BackgroundBeams />
 		</div>
 	);
 

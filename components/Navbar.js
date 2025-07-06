@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
-import { useEffect, useState, useRef } from "react";
 import Image from 'next/image'
 import Link from "next/link";
 import { login } from "@/lib/login";
