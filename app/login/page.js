@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function SignInPage() {
 	const { data: session, status } = useSession();
 	const [issubmitted, setIssubmitted] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const {
 		register,
@@ -42,13 +43,37 @@ export default function SignInPage() {
 		}
 	}, [status, issubmitted]);
 
-	// Pre-fill default username from email
 	useEffect(() => {
-		if (session?.user?.email) {
-			const defaultUsername = session.user.email.split("@")[0];
-			setValue("username", defaultUsername);
+		async function fetchUserData() {
+			if (!session?.user?.email) return;
+
+			setIsLoading(true); // start loading
+			try {
+				const res = await fetch(`/api/get-user?email=${encodeURIComponent(session.user.email)}`);
+				const data = await res.json();
+				console.log(data);
+
+				if (data.success && data.user) {
+					setValue("username", data.user.username);
+					setValue("bio", data.user.bio || "");
+					setValue("github", data.user.github || "");
+					setValue("twitter", data.user.twitter || "");
+					setValue("linkedin", data.user.linkedin || "");
+				} else {
+					setValue("username", session.user.email.split("@")[0]);
+				}
+			} catch (error) {
+				console.error("Failed to fetch user data:", error);
+				setValue("username", session.user.email.split("@")[0]);
+			} finally {
+				setIsLoading(false); // stop loading
+			}
 		}
+
+		fetchUserData();
 	}, [session, setValue]);
+
+
 
 	const onSubmit = async (data) => {
 		const { username, bio, github, twitter, linkedin } = data;
@@ -172,6 +197,11 @@ export default function SignInPage() {
 					Submit
 				</button>
 			</form>
+			{isLoading && (
+				<div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+					<div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+				</div>
+			)}
 		</div>
 	);
 }

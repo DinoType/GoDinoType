@@ -1,7 +1,7 @@
-import NextAuth from 'next-auth'
-import GitHubProvider from 'next-auth/providers/github'
-import GoogleProvider from 'next-auth/providers/google'
-import clientPromise from '@/lib/mongodb'
+import NextAuth from 'next-auth';
+import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
+import clientPromise from '@/lib/mongodb';
 
 export const authOptions = {
 	providers: [
@@ -16,23 +16,29 @@ export const authOptions = {
 	],
 
 	callbacks: {
-		async signIn({ user, account }) {
-			const client = await clientPromise
-			const db = client.db('godinotype')
-			const usersCollection = db.collection('users')
+		async signIn({ user }) {
+			const client = await clientPromise;
+			const db = client.db('godinotype');
+			const usersCollection = db.collection('users');
 
-			const existingUser = await usersCollection.findOne({ email: user.email })
+			await usersCollection.updateOne(
+				{ email: user.email },
+				{
+					$setOnInsert: {
+						username: user.email.split('@')[0],
+						name: user.name || '',
+						email: user.email,
+						image: user.image || '',
+						bio: '',
+						github: '',
+						twitter: '',
+						linkedin: ''
+					}
+				},
+				{ upsert: true }
+			);
 
-			if (!existingUser) {
-				await usersCollection.insertOne({
-					username: user.email.split('@')[0],
-					name: user.name,
-					email: user.email,
-					image: user.image || null,
-				})
-			}
-
-			return true
+			return true;
 		},
 	},
 
@@ -41,4 +47,4 @@ export const authOptions = {
 	},
 
 	secret: process.env.NEXTAUTH_SECRET,
-}
+};
