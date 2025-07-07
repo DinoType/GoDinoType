@@ -99,7 +99,7 @@ export default function SharedResult({ username }) {
 							</div>
 							{userData.ranks !== null && (
 								<div className="bento rank-info col-span-3 row-span-1">
-									<div className={`rank-heading diamond`}>
+									<div className={`rank-heading ${rankCategory}`}>
 										<span className="w-8 h-8 flex items-center justify-center">
 											<svg viewBox="0 0 272 664" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
