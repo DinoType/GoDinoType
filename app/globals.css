@@ -240,6 +240,60 @@
 	@apply w-full h-full object-cover absolute;
 }
 
+.rank-heading {
+	@apply flex items-center justify-center gap-4;
+}
+
+.rank-heading h1 {
+	@apply text-6xl;
+}
+
+.rank-heading.diamond h1 {
+	background: linear-gradient(120deg,
+			#a855f7,
+			#ec4899,
+			#38bdf8,
+			#a855f7);
+	background-size: 300% 300%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: shimmer 6s ease-in-out infinite;
+	position: relative;
+	text-align: center;
+	letter-spacing: 0.05em;
+}
+
+.rank-heading.golden {
+	@apply text-[#FFD000];
+}
+
+.rank-heading.silver {
+	@apply text-[#E0E8F0];
+}
+
+.rank-heading.bronze {
+	@apply text-[#985d21];
+}
+
+.rank-heading.unranked {
+	@apply text-white;
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
 @theme inline {
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
