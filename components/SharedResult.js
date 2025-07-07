@@ -10,6 +10,7 @@ export default function SharedResult({ username }) {
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [userData, setUserData] = useState(null);
+	const [rankData, setRankData] = useState(null);
 
 	useEffect(() => {
 		const getUser = async () => {
