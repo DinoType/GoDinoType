@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -40,7 +41,7 @@
 
 /* ========== Navbar ========== */
 .navbar {
-	@apply w-full h-[12dvh] bg-primary-bg flex items-center justify-around z-20 fixed;
+	@apply w-full h-[10dvh] bg-primary-bg flex items-center justify-around z-20 fixed;
 }
 
 .logo {
@@ -186,6 +187,57 @@
 
 .lb tbody tr:nth-child(even) {
 	@apply bg-[#2a2a2a];
+}
+
+/* Shared Result */
+
+.bento-container {
+	font-family: "Poppins", sans-serif;
+	@apply relative z-10 w-full py-2 px-2 lg:py-10 lg:px-4;
+}
+
+.bento-grid {
+	@apply grid w-full auto-rows-[22rem] grid-cols-3 gap-2 lg:gap-4;
+}
+
+.bento {
+	@apply bg-primary-bg text-white flex justify-center items-center border border-[#333] shadow-lg rounded-2xl;
+}
+
+.user-info {
+	@apply flex justify-start items-start p-2 flex-col gap-6 py-12 px-10;
+}
+
+.user-info h1 {
+	@apply text-8xl font-normal;
+}
+
+.user-info p {
+	@apply text-gray-200 text-xl line-clamp-2;
+}
+
+.user-info .socials {
+	@apply flex gap-8
+}
+
+.user-info .socials a {
+	@apply flex text-base gap-2 items-center justify-center px-12 py-3 bg-white border-white border transition-all duration-300 text-black rounded-md hover:bg-transparent hover:text-white;
+}
+
+.user-image {
+	@apply overflow-hidden relative;
+}
+
+.gradient-overlay {
+	@apply absolute bottom-0 left-0 w-full h-full pointer-events-none z-1;
+	background: linear-gradient(to top,
+			rgba(0, 0, 0, 1) 0%,
+			rgba(0, 0, 0, .8) 24%,
+			rgba(0, 0, 0, 0) 100%);
+}
+
+.user-image img {
+	@apply w-full h-full object-cover absolute;
 }
 
 @theme inline {
