@@ -197,7 +197,7 @@
 }
 
 .bento-grid {
-	@apply grid w-full auto-rows-[22rem] grid-cols-3 gap-2 lg:gap-4;
+	@apply grid w-full auto-rows-[22rem] grid-cols-1 md:grid-cols-3 gap-6 p-4 md:gap-4;
 }
 
 .bento {
@@ -205,27 +205,27 @@
 }
 
 .user-info {
-	@apply flex justify-start items-start p-2 flex-col gap-6 py-12 px-10;
+	@apply flex justify-start items-start h-fit md:h-full px-6 py-8 gap-6 flex-col md:gap-6 md:py-12 md:px-10;
 }
 
 .user-info h1 {
-	@apply text-8xl font-normal;
+	@apply text-4xl md:text-8xl font-normal;
 }
 
 .user-info p {
-	@apply text-gray-200 text-xl line-clamp-2;
+	@apply text-gray-300 text-xl md:text-xl line-clamp-2;
 }
 
 .user-info .socials {
-	@apply flex gap-8
+	@apply flex flex-row gap-4 md:gap-8
 }
 
 .user-info .socials a {
-	@apply flex text-base gap-2 items-center justify-center px-12 py-3 bg-white border-white border transition-all duration-300 text-black rounded-md hover:bg-transparent hover:text-white;
+	@apply flex text-base gap-2 items-center justify-center p-4 md:px-10 md:py-3 bg-white border-white border transition-all duration-300 text-black rounded-md hover:bg-transparent hover:text-white;
 }
 
 .user-image {
-	@apply overflow-hidden relative;
+	@apply overflow-hidden relative mt-[-88px] md:mt-0;
 }
 
 .gradient-overlay {
@@ -245,11 +245,15 @@
 }
 
 .rank-heading {
-	@apply flex items-center justify-center gap-4;
+	@apply flex items-center justify-center gap-4 mt-4;
 }
 
 .rank-heading h1 {
-	@apply text-6xl;
+	@apply text-4xl md:text-6xl;
+}
+
+.rank-heading span {
+	@apply w-5 h-5 md:w-8 md:h-8;
 }
 
 .rank-heading.diamond {
@@ -284,19 +288,19 @@
 }
 
 .rank-details {
-	@apply w-full flex gap-4 justify-around;
+	@apply w-full flex p-4 gap-4 flex-col md:flex-row md:gap-4 justify-around;
 }
 
 .details {
-	@apply flex flex-col gap-2;
+	@apply flex flex-col gap-1 md:gap-2;
 }
 
 .details h2 {
-	@apply text-xl text-gray-300;
+	@apply text-sm md:text-xl text-gray-300;
 }
 
 .details p {
-	@apply text-4xl capitalize;
+	@apply text-2xl md:text-4xl capitalize;
 }
 
 .wpm,

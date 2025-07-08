@@ -39,17 +39,17 @@ export default function SharedResult({ username }) {
 	return (
 		<div className='bg-[#101010] w-full h-full'>
 			{!isLoading && userData ? (
-				<div className='bg-[#101010] w-full max-w-5xl flex items-center justify-center mx-auto'>
+				<div className='bg-[#101010] w-full md:max-w-5xl flex items-center justify-center mx-auto'>
 					<div className="bento-container">
 						<div className="bento-grid">
-							<div className='bento user-info col-span-2 row-span-1'>
+							<div className='bento col-span-1 row-span-1 user-info md:col-span-2 md:row-span-1'>
 								<h1>I'm a T'Rex</h1>
 								<p>{userData.user.bio || ''} Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores distinctio similique perspiciatis atque nihil, magni consequuntur eveniet, officia doloribus, obcaecati facilis enim numquam commodi aliquam? Tempore suscipit assumenda optio aut.</p>
 								<div className="socials">
 									{userData.user.github && userData.user.github !== "" && (
 										<a href={userData.user.github} target="_blank" rel="noopener noreferrer">
-											Github
-											<span className="w-4 h-4 flex items-center justify-center">
+											<div className='hidden md:block'>Github</div>
+											<span className="w-5 h-5 flex items-center justify-center">
 												<svg
 													xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 													<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
@@ -60,8 +60,8 @@ export default function SharedResult({ username }) {
 									)}
 									{userData.user.linkedin && userData.user.linkedin !== "" && (
 										<a href={userData.user.linkedin} target="_blank" rel="noopener noreferrer">
-											LinkedIn
-											<span className="w-4 h-4 flex items-center justify-center">
+											<div className='hidden md:block'>LinkedIn</div>
+											<span className="w-5 h-5 flex items-center justify-center">
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
 													viewBox="0 0 24 24"
@@ -75,7 +75,7 @@ export default function SharedResult({ username }) {
 									)}
 									{userData.user.twitter && userData.user.twitter !== "" && (
 										<a href={userData.user.twitter} target="_blank" rel="noopener noreferrer">
-											<span className="w-6 h-6 flex items-center justify-center">
+											<span className="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center">
 												<svg viewBox="0 0 24 24" fill="none"
 													xmlns="http://www.w3.org/2000/svg">
 													<path d="M2 3H8.32813L12.6981 8.75109L17.7506 3H20.8181L14.1187 10.6248L22 21H15.8281L10.9944 14.7082L5.46312 20.9994H2.39562L9.56125 12.8444L2 3ZM5.58125 4.7318L16.675 19.1717H18.375L7.40437 4.7318H5.58125Z" fill="currentColor" />
@@ -85,7 +85,7 @@ export default function SharedResult({ username }) {
 									)}
 								</div>
 							</div>
-							<div className='bento user-image col-span-1 row-span-1'>
+							<div className='bento col-span-1 row-span-1 user-image md:col-span-1 md:row-span-1'>
 								<Image
 									src={userData.user.image}
 									width={500}
@@ -99,7 +99,7 @@ export default function SharedResult({ username }) {
 								</div>
 							</div>
 							{userData.ranks !== null && (
-								<div className="bento rank-info col-span-3 row-span-1">
+								<div className="bento col-span-1 row-span-1 rank-info md:col-span-3 md:row-span-1">
 									<div className={`rank-heading ${rankCategory}`}>
 										<span className="w-8 h-8 flex items-center justify-center">
 											<svg viewBox="0 0 272 664" fill="none"
@@ -131,19 +131,19 @@ export default function SharedResult({ username }) {
 									</div>
 								</div>
 							)}
-							<div className="bento wpm">
+							<div className="bento col-span-1 row-span-1 wpm">
 								<div className="inner-stat">
 									<p>{userData.bestCategory.details.wpm}</p>
 									<h2>WPM</h2>
 								</div>
 							</div>
-							<div className="bento acc">
+							<div className="bento col-span-1 row-span-1 acc">
 								<div className="inner-stat">
 									<p className='flex gap-0 items-center justify-center'>{userData.bestCategory.details.acc} <span className='text-6xl'>%</span></p>
 									<h2>Accuracy</h2>
 								</div>
 							</div>
-							<div className="bento ctyped">
+							<div className="bento col-span-1 row-span-1 ctyped">
 								<div className="inner-stat">
 									<p>{userData.bestCategory.details.charTyped}</p>
 									<h2>Characters <br /> Typed</h2>
