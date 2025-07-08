@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Poppins, Material } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/ui/SessionWrapper";
 import { TypingProvider } from "@/app/context/TypingContext";
@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<head>
 				<link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+				<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 			</head>
 			<SessionWrapper>
 				<body
