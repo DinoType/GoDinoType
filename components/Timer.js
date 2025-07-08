@@ -29,7 +29,7 @@ export default function Timer() {
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, [isStarted]);
+	}, [isStarted, setIsFinished, setTimeLeft]);
 
 	return (
 		<>

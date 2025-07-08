@@ -43,7 +43,7 @@ export default function SharedResult({ username }) {
 					<div className="bento-container">
 						<div className="bento-grid">
 							<div className='bento col-span-1 row-span-1 user-info md:col-span-2 md:row-span-1'>
-								<h1>I'm a T'Rex</h1>
+								<h1>I&apos;m a T&apos;Rex</h1>
 								<p>{userData.user.bio || ''} Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores distinctio similique perspiciatis atque nihil, magni consequuntur eveniet, officia doloribus, obcaecati facilis enim numquam commodi aliquam? Tempore suscipit assumenda optio aut.</p>
 								<div className="socials">
 									{userData.user.github && userData.user.github !== "" && (
@@ -94,7 +94,7 @@ export default function SharedResult({ username }) {
 								/>
 								<div className="gradient-overlay" />
 								<div className='absolute flex flex-col gap-2 bottom-4 p-4 z-2'>
-									<p className='text-4xl'>I'm {userData.user.name.split(' ')[0]}</p>
+									<p className='text-4xl'>I&apos;m {userData.user.name.split(' ')[0]}</p>
 									<p className='text-base text-gray-200 line-clamp-2'>{userData.user.bio || ''} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti rem voluptates architecto, accusamus consequatur ipsam corporis et odio cupiditate quasi, consectetur eius nulla sequi, esse accusantium facilis suscipit quia. A?</p>
 								</div>
 							</div>

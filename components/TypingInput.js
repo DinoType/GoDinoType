@@ -17,7 +17,7 @@ export default function TypingInput() {
 		const focus = () => inputRef.current?.focus();
 		window.addEventListener("click", focus);
 		return () => window.removeEventListener("click", focus);
-	}, []);
+	}, [inputRef]);
 
 	// Block arrow keys
 	useEffect(() => {

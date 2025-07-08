@@ -20,7 +20,7 @@ export default function TypingSection() {
 
 	useEffect(() => {
 		fetchQuotes(setQuote);
-	}, []);
+	}, [setQuote]);
 
 	return (
 		<div className="typing-container">

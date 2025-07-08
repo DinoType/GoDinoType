@@ -34,7 +34,7 @@ export default function ResultsSection({ reset }) {
 		if (isFinished) {
 			calculateResults(testTime, quote, input, setWpm, setAccuracy, setCharTyped);
 		}
-	}, [isFinished]);
+	}, [isFinished, testTime, quote, input, setWpm, setAccuracy, setCharTyped]);
 
 	useEffect(() => {
 		const updateStats = async () => {

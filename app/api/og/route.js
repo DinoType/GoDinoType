@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from '@vercel/og';
 
 export const runtime = 'edge';
@@ -54,7 +55,7 @@ export async function GET(req) {
 					top: 166,
 					left: 40,
 				}}>
-					I'm a T-Rex
+					I&apos;m a T-Rex
 				</h1>
 
 				{/* WPM */}
@@ -74,15 +75,15 @@ export async function GET(req) {
 							marginLeft: '10px',
 						}}
 					>
-						{wpm} words 
-					</span> 
+						{wpm} words
+					</span>
 					<span
 						style={{
 							marginLeft: '10px',
 						}}
 					>
 						per minute.
-					</span> 
+					</span>
 				</p>
 
 				{/* Additional lines */}
@@ -105,6 +106,9 @@ export async function GET(req) {
 		{
 			width: 1200,
 			height: 630,
+			headers: {
+				'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
+			},
 		}
 	);
 }
