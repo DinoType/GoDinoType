@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useTypingContext } from "@/app/context/TypingContext";
 import { calculateResults } from "@/lib/calculateResults";
+import { fetchUser } from "@/lib/fetchUser";
 import CountUp from "@/components/ui/countup";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { login } from "@/lib/login";
@@ -87,7 +88,7 @@ export default function ResultsSection({ reset }) {
 			}
 
 			if (platform === "twitter") {
-				const text = `Can you even get close to me?`;
+				const text = `🦖 My claws Type at ${wpm} Words Per Minute \n🔥 Challenge accepted ? #GoDinoType `;
 				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/0`;
 				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 				const width = 550;
@@ -102,7 +103,7 @@ export default function ResultsSection({ reset }) {
 			}
 
 			if (platform === "linkedin") {
-				const text = `Can you even get close to me?`;
+				const text = `🦖 My claws Type at ${wpm} Words Per Minute \n🔥 Challenge accepted ? #GoDinoType `;
 				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/1`;
 				const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
 				const width = 550;
