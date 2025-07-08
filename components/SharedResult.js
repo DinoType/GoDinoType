@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchUser } from '@/lib/fetchUser';
+import { formatDate } from '@/lib/formatDate';
 import { getRankCategory } from '@/lib/getRankCategory'
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import Link from 'next/link';
-import Image from 'next/image'
+import Image from 'next/image';
 
 export default function SharedResult({ username }) {
 
@@ -114,15 +115,47 @@ export default function SharedResult({ username }) {
 											</svg>
 										</span>
 									</div>
+									<div className="rank-details">
+										<div className="details">
+											<h2>Time Limit</h2>
+											<p>{userData.bestCategory.details.timeLimit}s</p>
+										</div>
+										<div className="details">
+											<h2>Device Type</h2>
+											<p>{userData.bestCategory.details.device}</p>
+										</div>
+										<div className="details">
+											<h2>At</h2>
+											<p>{formatDate(userData.bestCategory.details.updatedAt).split(',')[0]}</p>
+										</div>
+									</div>
 								</div>
 							)}
+							<div className="bento wpm">
+								<div className="inner-stat">
+									<p>{userData.bestCategory.details.wpm}</p>
+									<h2>WPM</h2>
+								</div>
+							</div>
+							<div className="bento acc">
+								<div className="inner-stat">
+									<p className='flex gap-0 items-center justify-center'>{userData.bestCategory.details.acc} <span className='text-6xl'>%</span></p>
+									<h2>Accuracy</h2>
+								</div>
+							</div>
+							<div className="bento ctyped">
+								<div className="inner-stat">
+									<p>{userData.bestCategory.details.charTyped}</p>
+									<h2>Characters <br /> Typed</h2>
+								</div>
+							</div>
 						</div>
 					</div>
 					<BackgroundBeams />
 				</div>
 			) : (
 				<div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-					<div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+					<div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
 				</div>
 			)}
 		</div>

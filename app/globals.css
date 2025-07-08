@@ -201,7 +201,7 @@
 }
 
 .bento {
-	@apply bg-primary-bg text-white flex justify-center items-center border border-[#333] shadow-lg rounded-2xl;
+	@apply bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] text-white flex justify-center items-center border border-[#333] shadow-lg rounded-2xl;
 }
 
 .user-info {
@@ -240,6 +240,10 @@
 	@apply w-full h-full object-cover absolute;
 }
 
+.rank-info {
+	@apply flex flex-col justify-evenly gap-4;
+}
+
 .rank-heading {
 	@apply flex items-center justify-center gap-4;
 }
@@ -252,12 +256,10 @@
 	color: #d65db1;
 }
 
-.rank-heading.diamond h1{
-	background: linear-gradient(
-		45deg,
-		#845ec2,
-		#d65db1
-	);
+.rank-heading.diamond h1 {
+	background: linear-gradient(45deg,
+			#845ec2,
+			#d65db1);
 	background-size: 100%;
 	width: fit-content;
 	height: fit-content;
@@ -279,6 +281,68 @@
 
 .rank-heading.unranked {
 	@apply text-white;
+}
+
+.rank-details {
+	@apply w-full flex gap-4 justify-around;
+}
+
+.details {
+	@apply flex flex-col gap-2;
+}
+
+.details h2 {
+	@apply text-xl text-gray-300;
+}
+
+.details p {
+	@apply text-4xl capitalize;
+}
+
+.wpm,
+.acc,
+.ctyped {
+	@apply flex flex-col p-4;
+}
+
+.inner-stat {
+	@apply flex flex-col p-4 justify-center items-center;
+}
+
+.wpm h2,
+.acc h2,
+.ctyped h2 {
+	@apply text-xl tracking-wider font-medium text-gray-400;
+}
+
+.wpm p,
+.acc p,
+.ctyped p {
+	@apply text-8xl font-medium text-white;
+}
+
+.wpm {
+	@apply items-start justify-end;
+	background-image: url(/wpm.svg), linear-gradient(38deg, #1a1a1a, #101010);
+	background-repeat: no-repeat;
+	background-size: 36%, cover;
+	background-position: right 20px top 20px, 0px 0px;
+}
+
+.acc {
+	@apply items-start justify-start;
+	background-image: url(/acc.svg), linear-gradient(148deg, #1a1a1a, #101010);
+	background-repeat: no-repeat;
+	background-size: 36%, cover;
+	background-position: right 20px bottom 20px, 0px 0px;
+}
+
+.ctyped {
+	@apply items-end justify-end;
+	background-image: url(/ctyped.svg), linear-gradient(308deg, #1a1a1a, #101010);
+	background-repeat: no-repeat;
+	background-size: 36%, cover;
+	background-position: 20px 20px, 0px 0px;
 }
 
 @theme inline {
