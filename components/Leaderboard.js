@@ -160,21 +160,6 @@ export default function Leaderboard() {
 						</button>
 					</div>
 				</div>
-
-				{/* <button onClick={nextPage}>Next Page</button>
-					<button onClick={prevPage}>Previous Page</button>
-					{leaderboard.length === 0 ? (
-						<p>No results found.</p>
-					) : (
-						<ol>
-							{leaderboard.map((user, index) => (
-								<li key={user._id || index}>
-									#{user.rank} {user.name || user.username} – {user.wpm} WPM
-								</li>
-							))}
-						</ol>
-					)} */}
-
 			</div>
 		</div>
 	)
