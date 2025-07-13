@@ -89,7 +89,7 @@ export default function ResultsSection({ reset }) {
 
 			if (platform === "twitter") {
 				const text = `🦖 My claws Type at ${wpm} Words Per Minute \n🔥 Challenge accepted ? #GoDinoType `;
-				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/0`;
+				const url = `${process.env.NEXT_PUBLIC_BASE_URL}result/${resolvedUsername}/${wpm}/${accuracy}/0`;
 				const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 				const width = 550;
 				const height = 420;
@@ -104,7 +104,7 @@ export default function ResultsSection({ reset }) {
 
 			if (platform === "linkedin") {
 				const text = `🦖 My claws Type at ${wpm} Words Per Minute \n🔥 Challenge accepted ? #GoDinoType `;
-				const url = `${process.env.NEXT_PUBLIC_BASE_URL}/result/${resolvedUsername}/${wpm}/${accuracy}/1`;
+				const url = `${process.env.NEXT_PUBLIC_BASE_URL}result/${resolvedUsername}/${wpm}/${accuracy}/1`;
 				const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
 				const width = 550;
 				const height = 420;

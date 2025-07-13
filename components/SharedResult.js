@@ -151,6 +151,7 @@ export default function SharedResult({ username }) {
 							</div>
 						</div>
 					</div>
+					<Link className='floatingBtn' href={'/'}>Test Your Speed</Link>
 					<BackgroundBeams />
 				</div>
 			) : (
