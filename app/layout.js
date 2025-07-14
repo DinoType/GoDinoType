@@ -16,14 +16,39 @@ const geistMono = Geist_Mono({
 const poppins = Poppins({
 	subsets: ['latin'],
 	variable: '--font-poppins',
-	weight: ['400','500','600','700'],
+	weight: ['400', '500', '600', '700'],
 	display: 'swap',
 })
 
 export const metadata = {
 	title: "GoDinoType - Typing Speed Test",
-	description: "Challenge yourself with DinoType — check your typing speed and easily share your verified scores with friends!",
+	description:
+		"Challenge yourself with DinoType — check your typing speed and easily share your verified scores with friends!",
+	openGraph: {
+		title: "GoDinoType - Typing Speed Test",
+		description:
+			"Challenge yourself with DinoType — check your typing speed and easily share your verified scores with friends!",
+		url: "https://godinotype.netlify.app", // replace with your actual deployed domain
+		siteName: "GoDinoType",
+		type: "website",
+		images: [
+			{
+				url: "https://godinotype.netlify.app/og.jpg", // full image URL (not relative!)
+				width: 1200,
+				height: 630,
+				alt: "GoDinoType - OG Preview",
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "GoDinoType - Typing Speed Test",
+		description:
+			"Challenge yourself with DinoType — check your typing speed and easily share your verified scores with friends!",
+		images: ["https://godinotype.netlify.app/og.jpg"],
+	},
 };
+
 
 export default function RootLayout({ children }) {
 	return (
