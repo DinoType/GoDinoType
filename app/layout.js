@@ -33,7 +33,7 @@ export const metadata = {
 		type: "website",
 		images: [
 			{
-				url: "https://godinotype.netlify.app/og.jpg", // full image URL (not relative!)
+				url: "https://godinotype.netlify.app/og.jpg?v=2", // full image URL (not relative!)
 				width: 1200,
 				height: 630,
 				alt: "GoDinoType - OG Preview",
